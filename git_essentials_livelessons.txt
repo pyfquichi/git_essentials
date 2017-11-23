@@ -70,6 +70,10 @@ git diff --staged
 git commit -m 'I remembered the change.'
 git log --oneline
 
+#---------------------
+# look around
+#---------------------
+
 # look around, diff with previous commit, e.g. HEAD~1 vs HEAD
 git log --oneline
 git diff HEAD~1
@@ -100,6 +104,10 @@ git checkout HEAD~3
 # Move head back to master
 git checkout master
 
+#---------------------
+# Undo changes
+#---------------------
+
 # Ignore changes to README.md
 rm README.md
 git status
@@ -111,8 +119,46 @@ git status
 git diff --staged
 git reset HEAD README.md
 
-
 # Undoing changes
+git reset --hard
+git checkout master README.md
 
+#---------------------
+# Ignore things in git
+#---------------------
+mkdir src docs data
+touch src/.gitkeep
+touch docs/.gitkeep
+touch data/.gitkeep
+git status
+mkdir output
+touch output/.gitkeep
+git add .
+git status
+git commit -m 'create src docs data output folders'
+cd docs
+git add nobel.tex
+git commit -m 'nobel tex file'
 
+-- Install https://www.tug.org/texlive/
+-- or convert the file using https://convertfiles.online/convert/tex/pdf
+
+git status
+vi .gitignore
+git status
+git add .
+git commit -m 'add ignore file for tex files'
+git add .
+git commit -m 'using patterns in ignore file'
+
+-- force an ignored file
+ git add nobel.pdf -f
+ git commit -m 'force added pdf output'
+ 
+ 
+ #---------------------
+ # Remote branches
+ #---------------------
+ 
+ 
 
