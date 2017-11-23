@@ -1,0 +1,118 @@
+#---------------------
+# personal config
+#---------------------
+git config --global user.name "William JuanSon"
+git config --global user.email "wquinter@gmail.com"
+git config --global color.ui "auto"
+
+# mac/linux
+#---------------------
+git config --global core.editor "subl -n -w"
+
+# windows
+#---------------------
+git config --global core.editor "'C:\Program Files\Sublime Text 3\sublime_text.exe' -w"
+
+git config --global core.editor "'C:\Program Files (x86)\Notepad++\notepad++.exe' -multiInst -notabbar -nosession -noPlugin"
+
+# check settings
+#---------------------
+git config --list
+
+
+#---------------------
+# create git repository
+#---------------------
+pwd
+mkdir git
+cd git
+mkdir git_lesson
+cd git_lesson
+git init
+git status
+
+#---------------------
+# Track changes
+#---------------------
+
+# create README.md file and commit using the editor to add the commit message
+git status
+git add README.md
+git commit
+git log
+
+# Modify README.md and commit
+git status
+git add README.md
+git commit -m "A second commit to the README.md file"
+git log --oneline
+
+# Modify README.md and commit
+git status
+git add README.md
+git commit -m "This is the third change to the README.md file"
+git log --oneline
+
+# Modify README.md, see what has changed, add all changes, then commit using single line message with single quote
+git status
+git diff
+git add .
+git status
+git commit -m 'what is git'
+git log --oneline
+
+# Modify, see status, see diff, add to stage, diff with staged 
+git status
+git diff
+git add .
+git status
+git diff --staged
+git commit -m 'I remembered the change.'
+git log --oneline
+
+# look around, diff with previous commit, e.g. HEAD~1 vs HEAD
+git log --oneline
+git diff HEAD~1
+git diff HEAD~1 HEAD
+git diff e43813a
+
+# look around, diff with 2 previous commits, e.g. HEAD~2 vs HEAD
+git log --oneline
+git diff HEAD~2
+git diff HEAD~2 HEAD
+git diff 7724696
+
+# look around, what was added in commit HEAD~2
+git log --oneline
+git diff HEAD~3 HEAD~2
+git diff 22e679a 7724696
+
+# checkout README.md to previous change
+git checkout HEAD~1 README.md
+git status
+git diff --staged
+git commit -m 'delete line I forgot about.'
+git log --oneline
+
+# Move the head to HEAD~3  (7724696), getting ready to create a branch (detached HEAD gets created)
+git checkout HEAD~3
+
+# Move head back to master
+git checkout master
+
+# Ignore changes to README.md
+rm README.md
+git status
+git checkout master README.md
+
+# unstage a change
+git checkout HEAD~1 README.md
+git status
+git diff --staged
+git reset HEAD README.md
+
+
+# Undoing changes
+
+
+
