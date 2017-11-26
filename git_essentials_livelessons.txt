@@ -152,13 +152,126 @@ git add .
 git commit -m 'using patterns in ignore file'
 
 -- force an ignored file
- git add nobel.pdf -f
- git commit -m 'force added pdf output'
+git add nobel.pdf -f
+git commit -m 'force added pdf output'
  
  
- #---------------------
- # Remote branches
- #---------------------
- 
- 
+#---------------------
+# Remote branches, using HTTPS
+#---------------------
+git remote add origin https://github.com/pyfquichi/git_lesson.git
+git remote -v
 
+# git push <where> <what>
+git push origin master
+
+#---------------------
+# Use remotes with SSH
+#---------------------
+cd ~
+ssh-keygen
+cd .ssh
+cat id_rsa.pub
+-- copy and add to github 
+
+cd ~/git/git_lesson
+git remote -v
+git remote rm origin
+git remote add origin git@github.com:pyfquichi/git_lesson.git
+git remote -v
+
+#---------------------------
+# Use branches on your own
+#---------------------------
+git branch -help
+git branch -a
+git branch my_branch
+git branch -a
+git checkout my_branch
+git status
+git branch -a
+
+# Create branch and checkout 
+git branch -a
+git status
+git checkout -b my_branch_with_checkout
+git branch -a
+git status
+
+# Delete branch
+git branch -d my_branch
+git branch -a
+git status
+git checkout master
+git branch -d my_branch_with_checkout
+
+# Create new branch, add some commits
+git checkout -b my_branch
+git commit -a -m 'added second function for calculating square'
+git log --oneline
+
+# Change branches and see differences on file
+cat my_square.py
+git checkout master
+cat my_square.py
+git log --oneline --all --decorate --graph
+
+# merge changes from my_branch into master, push changes to remote (origin)
+git checkout master
+git merge my_branch
+git push origin master
+
+# merge changes using "pull requests" (using github)
+git checkout -b document_src_functions
+git commit -a -m 'add documentation for squares'
+git log --oneline --all --decorate --graph
+git push origin document_src_functions
+git log --oneline --all --decorate --graph
+
+# pull after the merge done on github
+git checkout master
+git pull origin master
+git log --oneline --all --decorate --graph
+
+# clean up branches
+git branch -a
+git fetch --prune
+git branch -d my_branch
+git branch -d document_src_functions
+git branch -a
+
+# git workflows, create README.md file inside /docs
+git checkout -b development
+git checkout -b feature/document_docs
+git branch -a
+git status
+git add .
+git commit -m 'added docs to doc fixes #2'
+ls -l
+
+# push the new branches, use github to merge (pull request)
+git checkout development
+git push origin development
+
+git checkout feature/document_docs
+git push origin feature/document_docs
+
+# pull changes from github
+git checkout development
+git pull origin development
+
+# clean up branches
+git branch -a
+git fetch --prune
+git branch -d feature/document_docs
+git branch -a
+
+# more branches: create new branch, add README.md files to all folders, commit
+git checkout -b feature/folder_documentation
+git log --oneline --all --decorate --graph
+git add .
+git commit -m 'added documentation in folders, fixes #2'
+git push origin feature/folder_documentation
+
+
+ppp
