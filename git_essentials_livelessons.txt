@@ -295,4 +295,78 @@ git log --oneline --all --decorate --graph
 git push origin development
 git log --oneline --all --decorate --graph
 
-ppp-- 3.8
+# Add a folder using a feature and then  merge locally to development branch
+git checkout -b feature/bin_folder
+git branch -a
+pwd
+mkdir bin
+cd bin
+vi README.md
+git add .
+git commit -m "added bin folder with README"
+git log --oneline --all --decorate --graph
+cd ..
+git checkout development
+git merge feature/bin_folder
+
+# Make changes directly to master to incorporate hot fixes (using github)
+git checkout master
+git status
+git checkout -b hotfix/readme-caps
+git status
+git add .
+git commit -m 'fix "bugs" in the code (caps)'
+git push origin hotfix/readme-caps
+
+-- use github to create/incorporate using "pull request"
+-- then back to local to pull from master
+
+git checkout master
+git pull origin master
+git log --oneline --all --decorate --graph
+
+# clean up branches
+git branch -a
+git fetch --prune
+git branch -d feature/bin_folder hotfix/readme-caps
+git branch -a
+
+-- error: The branch 'hotfix/readme-caps' is not fully merged.  (it was already merged to master using github so using -D to remove it)
+git branch -D hotfix/readme-caps
+git branch -a
+
+
+# create another feature, adding another function
+git checkout development
+git checkout -b feature/cube_function
+cd src
+vi my_cube.py
+git add .
+git commit -m 'add cube function'
+
+-- sync development branch, push local changes to github, then rebase to master
+git checkout development
+git push origin development
+git rebase master
+git push -f origin development
+
+-- rebase to development
+git checkout feature/cube_function
+git rebase development
+
+-- push to github, 
+git push origin feature/cube_function
+
+-- use github to merge feature and development into master, then pull master
+git checkout master
+git pull origin master
+
+# clean up branches
+git branch -a
+git fetch --prune
+git branch -d feature/cube_function development
+git branch -a
+
+
+
+ppp-- 4
